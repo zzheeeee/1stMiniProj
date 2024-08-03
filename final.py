@@ -3,7 +3,7 @@
 ### 합 작업 파일 (08/01 11:50 인트로~미션7 완료 버전, 아웃트로, 맞춤법, 들여쓰기, 대화 관련 등등 미완료 버전)
 ### 합 작업 파일 (08/01 20:03 인트로~미션7 + 2 문제 추가 완료 버전, 대사 수정, 상황 조절, 간격 조절, 색깔, 삭제, 인트로/아웃트로(졸업장 등등 상황) 미완료 버전)
 ### 합 작업 파일 (08/02 17:55 인트로~미션7 + 2 문제 추가 완료 버전, 대사 수정, 상황 조절, 간격 조절, 색깔, 삭제, 인트로/아웃트로(졸업장 등등 상황) 완료  터미널 os clear 추가 버전)
-### 합 작업 파일 (08/02 20:28 1차 완료버전 //)
+#### 최종 ver (08/03)
 
 ################################## ▼ 초기값 ▼ ###################################
 import random
@@ -13,7 +13,7 @@ import os
 Loc = ['교무실', '양호실', '음악실', '매점', '도서실', '운동장 가는 길', '운동장','교무실']
 # 이름, 레벨, 인성, 체중, 스킬발동레벨
 hee = {'name':'쩡','level':4, 'kind':80, 'weight':0, 'skill':[6,7]}
-cha = {'name':'수빈','level':4, 'kind':100, 'weight':0, 'skill':[2,5]}
+cha = {'name':'빈','level':4, 'kind':100, 'weight':0, 'skill':[2,5]}
 playerList = [hee, cha]
 pIdx = 0 #random.randint(0,1)
 
@@ -197,7 +197,7 @@ print()
 print()
 print()
 print()
-pLoc = 7
+pLoc = 0
 ################################ ▲ 개발몬 선택 ▲ #################################
 ################################## ▼ 인트로 ▼ ###################################
 while pLoc == 0:
@@ -451,8 +451,9 @@ while pLoc==1:
             sys("숫자로 입력해주세요.")
             print()
             continue
-    os.system('clear')
     # 미션 01-3 이동 전 독백 ########
+    input("\x1b[31m>> \x1b[0m")
+    os.system('clear')
     print()
     print()
     print()
@@ -618,6 +619,7 @@ while pLoc == 2:
                 conv(npc, f"이런, 스텝이 꼬였구나. 몸 좀 풀고 다시 도전해봐.")
                 print()
         break
+    input("\x1b[31m>> \x1b[0m")
     os.system('clear')
     #미션 02-3 이동 전 독백
     print()
@@ -803,16 +805,16 @@ while pLoc == 3:
     print()
     print("* 매점 아주머니에게 질문할 말로 옳은 것을 고르세요.")
     while True:
-        que = input(" (1) 선반에 들어갈 빵이 총 몇개 인가요? \n (2) 백종원님을 불러올까요? \n (3) 빵이 총 얼마인가요?\n\n")
+        que = input(" (1) 선반에 들어갈 빵이 총 몇개 인가요? \n (2) 백종원님을 불러올까요? \n (3) 빵이 총 얼마인가요?\n\n입력 : ")
         print()
         print('-' * 110)
-        if que == '1':
+        if int(que) == 1:
             print()
             conv(npc, "16개란다.")
             conv(pName, "흠... 선반 칸과 맞지 않은걸 선반 칸을 늘려 드려야겠다.")
             print()
             break
-        elif que != '1':
+        elif int(que) != 1:
             print()
             conv(npc, "질문을 다시 해주겠니?")
             print()
@@ -827,10 +829,10 @@ while pLoc == 3:
         print()
         print("* 빵을 알맞게 넣기 위한 선반 범위가 알맞은 것을 고르세요.")
         print('** Hint: 매점 선반은 15칸 입니다.')
-        que = input(" (1) range(1,15,1)\n (2) range(0,15,1)\n (3) range(14,0,-1)\n (4) range(0,16,1)\n\n")
+        que = input(" (1) range(1,15,1)\n (2) range(0,15,1)\n (3) range(14,0,-1)\n (4) range(0,16,1)\n\n입력 : ")
         print()
         print('-' * 110)
-        if que == '4':
+        if int(que) == 4:
             print()
             conv(npc, f"{pName}이는 리스트 범위를 잘 이해하고 있구나. 똑똑한 개발몬이 되겠어~")
             print()
@@ -856,6 +858,7 @@ while pLoc == 3:
             print()
             continue
     # 미션 03-3 이동 전 독백
+    input("\x1b[31m>> \x1b[0m")
     os.system('clear')
     print()
     print()
@@ -969,44 +972,43 @@ while pLoc == 4:
     for i in range(0,6):
         book_lst = [date[i],name[i],book[i],born_book[i],write[i]]
         print(book_lst)
+    print()
+    print('-' * 110)
+    print()
+    conv(npc, f"{name[num]}이가 빌린 책을 찾으려면 인덱스 몇을 입력하면 보여줄까?")
+    print()
+    ### 숫자만 입력하기 (입력값 오류처리)
     while True:
-        print()
-        print('-' * 110)
-        print()
-        conv(npc, f"{name[num]}이가 빌린 책을 찾으려면 인덱스 몇을 입력하면 보여줄까?")
-        print()
-        ### 숫자만 입력하기 (입력값 오류처리)
-        while True:
-            try:
-                res_book = int(input("* 입력 : "))
-                break
-            ### ValueError 발생하면 수행
-            except ValueError:
+        try:
+            res_book = int(input("* 입력 : "))
+            if res_book == num:
                 print()
-                sys("입력값이 숫자가 아닙니다.")
+                conv(npc, f"{pName}이 덕분에 {name[num]}이가 빌린 책을 알게됐어~\n{pName}아 너무 고마워")
+                print()
+                print('=' * 110)
+                print()
+                print()
+                sys("레벨이 1 올랐습니다.")
+                print()
+                print()
+                print()
+                print()
+                print()
+                pLevel += 1
+                break
+            else:
+                print()
+                conv(npc, f"이건 {name[num]}이가 빌린 책이 아닌 것 같아.")
                 print()
                 continue
-        if res_book == num:
+        ### ValueError 발생하면 수행
+        except ValueError:
             print()
-            conv(npc, f"{pName}이 덕분에 {name[num]}이가 빌린 책을 알게됐어~\n{pName}아 너무 고마워")
-            print()
-            print('=' * 110)
-            print()
-            print()
-            sys("레벨이 1 올랐습니다.")
-            print()
-            print()
-            print()
-            print()
-            print()
-            pLevel += 1
-            break
-        else:
-            print()
-            conv(npc, f"이건 {name[num]}이가 빌린 책이 아닌 것 같아.")
+            sys("입력값이 숫자가 아닙니다.")
             print()
             continue
-    # 미션 04-3 이동 전 독백은
+    # 미션 04-3 이동 전 독백
+    input("\x1b[31m>> \x1b[0m")
     os.system('clear')
     print()
     print()
@@ -1555,7 +1557,7 @@ while pLoc ==7:
                     # print('teacher: 비김')
                     result = "Draw"
                     print(f"\x1b[44m {result.center(38, ' ')} \x1b[0m ")
-                    print("  ⠀⠀ ⠀⡤⢤⠀⡜⠉⡆⠀⡤⢤⠀⠀⠀⠀⠀⠀⠀⡤⢤⠀⡜⠉⡆⠀⡤⢤⠀⠀")
+                    print("  ⠀⠀⠀⡤⢤⠀⡜⠉⡆⠀⡤⢤⠀⠀⠀⠀⠀⠀⠀⡤⢤⠀⡜⠉⡆⠀⡤⢤⠀⠀")
                     print("   ⠀⠀⠀⢱⠀⡇⣇⠀⡇⢰⠁⡞⠀⠀⠀⠀⠀⠀⠀⢱⠀⡇⣇⠀⡇⢰⠁⡞⠀⠀")
                     print("   ⠰⡍⠱⣸⡄⢸⣿⠀⣇⡇⢰⠃⠀⠀⠀⠀⠰⡍⠱⣸⡄⢸⣿⠀⣇⡇⢰⠃⠀⠀")
                     print("   ⠀⠹⡄⠹⠇⠀⠁⠀⠉⠀⣾⡤⠚⢳⠀⠀⠀⠹⡄⠹⠇⠀⠁⠀⠉⠀⣾⡤⠚⢳")
